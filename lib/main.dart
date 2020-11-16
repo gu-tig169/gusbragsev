@@ -104,10 +104,11 @@ class MainView extends StatelessWidget {
           onChanged: (val) {},
           activeColor: Colors.black,
           ),
-        Text(task, style: TextStyle(fontSize: 20)),
+        Expanded(
+          child : Text(task, style: TextStyle(fontSize: 20)
+          ),
+        ),
         Container(
-          padding: const EdgeInsets.only(right: 0.0),
-          width: 100,
           child: IconButton(
             icon: Icon(Icons.close),
             tooltip: 'Delete', 
