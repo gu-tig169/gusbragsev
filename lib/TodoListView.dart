@@ -33,7 +33,7 @@ class TodoListView extends StatelessWidget {
                   context, 
                   MaterialPageRoute(
                     builder: (context) => AddTodoView(TodoRow(
-                      todoText: 'Vad behöver göras?'
+                      todoText: 'Vad behöver göras?' //Här behöver jag ändra så att det bara är hinttexten som visas. Ta reda på hur!
                     ))));
                     if (newTodo != null) {
                       Provider.of<MyState>(context, listen: false).addTodo(newTodo);

@@ -18,7 +18,7 @@ class TodoList extends StatelessWidget {
       leading: Checkbox(
           value: false, 
           onChanged: (bool newValue) {
-            var state = Provider.of<MyState>(context, listen: false);
+            var state = Provider.of<MyState>(context, listen: false); // när jag får in Consumern i main så används detta
           },
           activeColor: Colors.black,
           ),
