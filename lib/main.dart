@@ -22,4 +22,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// TODO: 
+// - Lösa Consumer så att man kan ta emot todoRow på första sidan CHECK
+// - Lösa så att checkbox går att checka CHECK
+// - Lösa så att Radera går att radera
+// - Lösa så att det kan skapas filterval
+// - Ev. göra ett streck över färdigcheckade rader
+//
+//
+
+
 

@@ -33,7 +33,7 @@ class TodoListView extends StatelessWidget {
                   context, 
                   MaterialPageRoute(
                     builder: (context) => AddTodoView(TodoRow(
-                      todoText: 'Vad behöver göras?' //Här behöver jag ändra så att det bara är hinttexten som visas. Ta reda på hur!
+                      todoText: '' 
                     ))));
                     if (newTodo != null) {
                       Provider.of<MyState>(context, listen: false).addTodo(newTodo);
@@ -43,8 +43,13 @@ class TodoListView extends StatelessWidget {
           ),
         ],
       ),
-     // body: Consumer<MyState>(builder: (context, state, child) => TodoList(state.todolist)), -------- Denna behöver jag lägga till för att den ska ta emot todoList men har inte hunnit lista ut hur jag ska få den omgjord så att den wrappar det under?? Tar gärna feedback om möjligt på det. 
-      body: Center(
+      body: Consumer<MyState>(
+        builder: (context, state, child) => TodoList(state.list)),
+
+    // Hur får jag in Center nu så att jag kan använda image-widgeten? Eller var använder jag den? Hittar inget som passar i 
+    //Scaffold
+    /* body: Center(
+
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -53,7 +58,7 @@ class TodoListView extends StatelessWidget {
 
           ],
         ),
-      ),
+      ),*/
     );
   }
 
