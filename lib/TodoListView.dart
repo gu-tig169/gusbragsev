@@ -13,12 +13,15 @@ class TodoListView extends StatelessWidget {
         title: Text('TODO'),
         backgroundColor: Colors.green[200],
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.filter_list_alt), 
-            onPressed: (){
-                print('Här ska det skapas filterval');
-              },    
+          PopupMenuButton(
+            onSelected: (value) {
+              Provider.of<MyState>(context, listen: false).setFilterBy(value);
+            },
+            itemBuilder: (context) => [
+            PopupMenuItem(child: Text('All'), value: 'all'),
+            PopupMenuItem(child: Text('Done'), value: 'done'),
+            PopupMenuItem(child: Text('Undone'), value: 'undone'),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.only(right: 30.0),
@@ -44,7 +47,11 @@ class TodoListView extends StatelessWidget {
         ],
       ),
       body: Consumer<MyState>(
-        builder: (context, state, child) => TodoList(state.list)),
+        builder: (context, state, child) => 
+          TodoList(
+            _filterTodos(state.list, state.filterBy),  
+          ),
+      ),
 
     // Hur får jag in Center nu så att jag kan använda image-widgeten? Eller var använder jag den? Hittar inget som passar i 
     //Scaffold
@@ -60,6 +67,16 @@ class TodoListView extends StatelessWidget {
         ),
       ),*/
     );
+  }
+
+  List<TodoRow> _filterTodos(list, filterBy) {
+    if (filterBy == 'all') 
+      return list;
+    if (filterBy == 'done')
+      return list.where((item) => item.completed == true).toList();
+    if (filterBy == 'undone')
+      return list.where((item) => item.completed == false).toList();
+    return null;
   }
 
   Widget _image() {

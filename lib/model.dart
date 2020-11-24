@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class TodoRow{
   String todoText;
   bool completed;
@@ -9,13 +10,16 @@ class TodoRow{
   void completedTodo(){
     completed =! completed;
   }
-
 }
 
 class MyState extends ChangeNotifier{
   List<TodoRow> _list = [];
 
+  String _filterBy = 'all';
+
   List<TodoRow> get list => _list;
+
+  String get filterBy => _filterBy;
 
   void addTodo(TodoRow todoRow){
     _list.add(todoRow);
@@ -28,12 +32,16 @@ class MyState extends ChangeNotifier{
     notifyListeners();
   }
 
-    void changeTodo(TodoRow todoRow){
-    final todoRowIndex = _list.indexOf(todoRow);
-    _list[todoRowIndex].completedTodo();
-    notifyListeners();
+  void changeTodo(TodoRow todoRow){
+  final todoRowIndex = _list.indexOf(todoRow);
+  _list[todoRowIndex].completedTodo();
+  notifyListeners();
   }
 
+  void setFilterBy(String filterBy) {
+    this._filterBy = filterBy;
+    notifyListeners();
+  }
 }
 
 //Lägg till checkboxvärde här 1. i Första klassen + konstruktor
