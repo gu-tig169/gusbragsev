@@ -17,11 +17,10 @@ class TodoList extends StatelessWidget {
     return ListTile(
       leading: Checkbox(
         value: todoRow.completed, 
-        onChanged: (bool done) 
-          {
-            var state = Provider.of<MyState>(context, listen: false);
-            state.changeTodo(todoRow);
-          },
+        onChanged: (bool done) {
+          var state = Provider.of<MyState>(context, listen: false);
+          state.changeTodo(todoRow);
+        },
         activeColor: Colors.black,
       ),
       title: Text(
