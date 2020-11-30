@@ -16,31 +16,29 @@ class TodoList extends StatelessWidget {
   Widget _todoRow(context, todoRow) { 
     return ListTile(
       leading: Checkbox(
-          value: todoRow.completed, 
-          onChanged: (bool done) 
-          {
-            var state = Provider.of<MyState>(context, listen: false); // när jag får in Consumern i main så används detta
-            state.changeTodo(todoRow);
-
+        value: todoRow.completed, 
+        onChanged: (bool done) {
+          var state = Provider.of<MyState>(context, listen: false);
+          state.changeTodo(todoRow);
+        },
+        activeColor: Colors.black,
+      ),
+      title: Text(
+        todoRow.todoText, 
+        style: TextStyle(
+          fontSize: 20,
+          decoration: todoRow.completed == true ? TextDecoration.lineThrough : null),
+      ),
+      trailing: Container(
+        child: IconButton(
+          icon: Icon(Icons.close),
+          tooltip: 'Delete', 
+          onPressed: () {
+            var state = Provider.of<MyState>(context, listen: false);
+            state.removeTodo(todoRow);
           },
-          activeColor: Colors.black,
-
-          ),
-        title: Expanded(
-          child : Text(todoRow.todoText, style: TextStyle(fontSize: 20), 
-          ),
         ),
-        trailing: Container(
-          child: IconButton(
-            icon: Icon(Icons.close),
-            tooltip: 'Delete', 
-            onPressed: () {
-              var state = Provider.of<MyState>(context, listen: false);
-              state.removeTodo(todoRow);
-            },
-          ),
-        ),  
+      ),  
     );
-  }
-  
+  } 
 }

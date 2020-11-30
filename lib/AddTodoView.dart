@@ -24,13 +24,10 @@ class AddTodoViewState extends State <AddTodoView>{
 
     textEditingController.addListener(() {
       setState(() {
-        todoText = textEditingController.text;
-        
+        todoText = textEditingController.text; 
       });
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +56,11 @@ class AddTodoViewState extends State <AddTodoView>{
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30),
       child: TextField(
-          controller: textEditingController,
-          decoration: InputDecoration(
+        controller: textEditingController,
+        decoration: InputDecoration(
           hintText: 'Vad behöver göras?', 
           fillColor: Colors.blue,
-          border: OutlineInputBorder(),
-          
+          border: OutlineInputBorder(),          
         ),
       ),
     );

@@ -13,12 +13,15 @@ class TodoListView extends StatelessWidget {
         title: Text('TODO'),
         backgroundColor: Colors.green[200],
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.filter_list_alt), 
-            onPressed: (){
-                print('Här ska det skapas filterval');
-              },    
+          PopupMenuButton(
+            onSelected: (value) {
+              Provider.of<MyState>(context, listen: false).filterTodos(value);
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(child: Text('All'), value: 'all'),
+              PopupMenuItem(child: Text('Done'), value: 'done'),
+              PopupMenuItem(child: Text('Undone'), value: 'undone'),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.only(right: 30.0),
@@ -28,40 +31,54 @@ class TodoListView extends StatelessWidget {
                 Icons.add_circle_rounded, 
                 size: 50, 
               ),
-              onPressed: () async{
+              onPressed: () async {
                 var newTodo = await Navigator.push(
                   context, 
                   MaterialPageRoute(
-                    builder: (context) => AddTodoView(TodoRow(
-                      todoText: '' 
-                    ))));
-                    if (newTodo != null) {
-                      Provider.of<MyState>(context, listen: false).addTodo(newTodo);
-                    }
+                    builder: (context) => AddTodoView(
+                      TodoRow(todoText: '' ),
+                    ),
+                  ),
+                );
+                  if (newTodo != null) {
+                    Provider.of<MyState>(context, listen: false).addTodo(newTodo);
+                  }
               },
             ),
           ),
         ],
       ),
       body: Consumer<MyState>(
-        builder: (context, state, child) => TodoList(state.list)),
-
-    // Hur får jag in Center nu så att jag kan använda image-widgeten? Eller var använder jag den? Hittar inget som passar i 
-    //Scaffold
+        builder: (context, state, child) => 
+          TodoList(
+            _filterTodos(state.list, state.filterBy),  
+          ),
+      ),
+    // Hur får jag denna(_image, widget-kod ligger längst ned här), som jag haft tidigare att dyka upp i bodyn, som jag hade som kod tidigare? Behöver lägga den i bodyn, men vet inte
+    //hur jag kombinerar det med Consumern i detta fallet. Tror jag blivit lite blind här - så tar gärna emot tips (ej viktigt).
     /* body: Center(
-
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _image(),
-
           ],
         ),
       ),*/
     );
   }
 
+  List<TodoRow> _filterTodos(list, filterBy) {
+    if (filterBy == 'all') 
+      return list;
+    if (filterBy == 'done')
+      return list.where((item) => item.completed == true).toList();
+    if (filterBy == 'undone')
+      return list.where((item) => item.completed == false).toList();
+    return null;
+  }
+
+/*
   Widget _image() {
     return Stack( 
       children: [
@@ -87,12 +104,10 @@ class TodoListView extends StatelessWidget {
         Positioned(
           bottom: 15,
           left: 21,
-          child: Text('Framtidsbalkong', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+          child: Text('TEXT', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
         ),
       ],
     );
   }
-
-
-
+*/
 }
