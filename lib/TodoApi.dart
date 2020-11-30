@@ -20,7 +20,6 @@ class TodoApi {
   }
 
   
-
   static Future <List<TodoRow>> getTodos() async {
     var response = await http.get(
       '$API_URL/todos?key=$API_KEY'
@@ -37,10 +36,17 @@ class TodoApi {
   static Future deleteTodo(String id) async {
     await http.delete('$API_URL/todos/$id?key=$API_KEY');
   }
+
+  static Future updateTodoCheckvalue(TodoRow todoRow) async {
+    var json = jsonEncode(TodoRow.toJson(todoRow));
+    String id = todoRow.id;
+    await http.put(
+      '$API_URL/todos/$id?key=$API_KEY',
+      body: json,
+      headers: {'Content-Type': 'application/json'}
+    );
+  }
 }
 
- //Ej klart: Skapa något som kan uppdatera TodoRow i förhållande till 'done'
- //så att filter fungerar) - PUT
- //Fungerar just nu i UI:t - men uppdaterar INTE API:et, så varje gång man lägger till en ny Todo så försvinner statet
 
 

@@ -29,7 +29,6 @@ class TodoRow{
   }
 }
 
-
 class MyState extends ChangeNotifier{
   List<TodoRow> _list = [];
   String _filterBy = 'all';
@@ -55,11 +54,18 @@ class MyState extends ChangeNotifier{
     await getList();
   }
 
-  void changeTodo(TodoRow todoRow){
+  void changeTodo(TodoRow todoRow) async {
     final todoRowIndex = _list.indexOf(todoRow);
-    _list[todoRowIndex].completedTodo();
-    notifyListeners();
-  }
+    if (_list.indexOf(todoRow) >= 0) {
+      _list[todoRowIndex].completedTodo();
+      await TodoApi.updateTodoCheckvalue(todoRow);
+      await getList();
+    } else {
+      todoRow.completed = false;
+      await TodoApi.updateTodoCheckvalue(todoRow);
+      await getList();   
+    }
+  }//Denna borde kunna skrivas om snyggare kanske
 
   void filterTodos(String filterBy) {
     this._filterBy = filterBy;

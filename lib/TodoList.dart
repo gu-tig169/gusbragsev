@@ -24,7 +24,10 @@ class TodoList extends StatelessWidget {
         activeColor: Colors.black,
       ),
       title: Text(
-        todoRow.todoText, style: TextStyle(fontSize: 20)
+        todoRow.todoText, 
+        style: TextStyle(
+          fontSize: 20,
+          decoration: todoRow.completed == true ? TextDecoration.lineThrough : null),
       ),
       trailing: Container(
         child: IconButton(
