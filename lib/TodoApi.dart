@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:async';
 
 const API_URL = 'https://todoapp-api-vldfm.ondigitalocean.app';
-const API_KEY = '03c93d5b-1ac3-47fb-9ad2-266dc899fbb7';
+const API_KEY = '2f9581ba-3c47-454e-b37b-19c06ac46ef7';
 
 class TodoApi {
 
