@@ -1,7 +1,6 @@
-import 'package:TodoApp/model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import './model.dart';
 
 class TodoList extends StatelessWidget {
   final List<TodoRow> list;
@@ -10,7 +9,9 @@ class TodoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: list.map((todoRow)=> _todoRow(context, todoRow)).toList());
+    return ListView(
+      children: list.map((todoRow)=> _todoRow(context, todoRow)).toList()
+    );
   }
 
   Widget _todoRow(context, todoRow) { 
@@ -27,7 +28,8 @@ class TodoList extends StatelessWidget {
         todoRow.todoText, 
         style: TextStyle(
           fontSize: 20,
-          decoration: todoRow.completed == true ? TextDecoration.lineThrough : null),
+          decoration: todoRow.completed == true ? TextDecoration.lineThrough : null,
+        ),
       ),
       trailing: Container(
         child: IconButton(

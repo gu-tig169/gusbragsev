@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'TodoListView.dart';
-import 'package:TodoApp/model.dart';
+import './model.dart';
+import './TodoListView.dart';
+
 
 void main() {
   var state = MyState();

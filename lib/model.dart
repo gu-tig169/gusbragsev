@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:TodoApp/TodoApi.dart';
+import './TodoApi.dart';
 
 
 class TodoRow{
@@ -8,10 +8,6 @@ class TodoRow{
   bool completed;
 
   TodoRow({this.id, this.todoText, this.completed = false});
-
-  void completedTodo(){
-    completed =! completed;
-  }
 
   static Map<String, dynamic> toJson(TodoRow todoRow) {
     return{
@@ -26,6 +22,10 @@ class TodoRow{
       todoText: json['title'],
       completed: json['done'], 
     );
+  }
+
+  void completedTodo(){
+    completed =! completed;
   }
 }
 
@@ -56,6 +56,7 @@ class MyState extends ChangeNotifier{
 
   void changeTodo(TodoRow todoRow) async {
     final todoRowIndex = _list.indexOf(todoRow);
+
     if (_list.indexOf(todoRow) >= 0) {
       _list[todoRowIndex].completedTodo();
       await TodoApi.updateTodoCheckvalue(todoRow);
@@ -65,7 +66,7 @@ class MyState extends ChangeNotifier{
       await TodoApi.updateTodoCheckvalue(todoRow);
       await getList();   
     }
-  }//Denna borde kunna skrivas om snyggare kanske
+  }
 
   void filterTodos(String filterBy) {
     this._filterBy = filterBy;

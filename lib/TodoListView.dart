@@ -1,8 +1,8 @@
-import 'package:TodoApp/model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'AddTodoView.dart';
-import 'TodoList.dart';
+import './AddTodoView.dart';
+import './model.dart';
+import './TodoList.dart';
 
 class TodoListView extends StatelessWidget {
   @override
@@ -22,6 +22,7 @@ class TodoListView extends StatelessWidget {
               PopupMenuItem(child: Text('Done'), value: 'done'),
               PopupMenuItem(child: Text('Undone'), value: 'undone'),
             ],
+            initialValue: 'all',
           ),
           Padding(
             padding: const EdgeInsets.only(right: 30.0),
@@ -36,7 +37,7 @@ class TodoListView extends StatelessWidget {
                   context, 
                   MaterialPageRoute(
                     builder: (context) => AddTodoView(
-                      TodoRow(todoText: '' ),
+                      TodoRow(todoText: ''),
                     ),
                   ),
                 );
@@ -54,17 +55,6 @@ class TodoListView extends StatelessWidget {
             _filterTodos(state.list, state.filterBy),  
           ),
       ),
-    // Hur får jag denna(_image, widget-kod ligger längst ned här), som jag haft tidigare att dyka upp i bodyn, som jag hade som kod tidigare? Behöver lägga den i bodyn, men vet inte
-    //hur jag kombinerar det med Consumern i detta fallet. Tror jag blivit lite blind här - så tar gärna emot tips (ej viktigt).
-    /* body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _image(),
-          ],
-        ),
-      ),*/
     );
   }
 
@@ -77,37 +67,4 @@ class TodoListView extends StatelessWidget {
       return list.where((item) => item.completed == false).toList();
     return null;
   }
-
-/*
-  Widget _image() {
-    return Stack( 
-      children: [
-        Image(image: AssetImage('assets/images/balkong1.jpg')),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: 50,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(0, 255, 255, 255),
-                  Color.fromARGB(255, 255, 255, 255),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-              )
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 15,
-          left: 21,
-          child: Text('TEXT', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
-        ),
-      ],
-    );
-  }
-*/
 }

@@ -1,5 +1,6 @@
-import 'package:TodoApp/model.dart';
 import 'package:flutter/material.dart';
+import './model.dart';
+
 
 class AddTodoView extends StatefulWidget {
   final TodoRow todoRow;
@@ -47,8 +48,8 @@ class AddTodoViewState extends State <AddTodoView>{
             Container(height: 20,),
             _addTodo(),
           ],
-        )
-      )
+        ),
+      ),
     );
   }
 
@@ -74,7 +75,7 @@ class AddTodoViewState extends State <AddTodoView>{
           onPressed: () {
             Navigator.pop(
               context,
-              TodoRow(todoText: todoText)
+              TodoRow(todoText: todoText),
             );
           },
           child: 
